@@ -1,54 +1,23 @@
-import React, { useState } from 'react';
-import { account, ID } from './appwrite/appwrite';
-import conf from '../conf/conf';
+import React, { useEffect } from "react";
+import { Footer, Header, Homepage, Register } from "./component";
+import { useDispatch, useSelector } from "react-redux";
+import authService from "./appwrite/auth.service";
+import { login } from "./redux/features/authSlice";
 
 const App = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  async function login(email, password) {
-    await account.createEmailPasswordSession(email, password);
-    setLoggedInUser(await account.get());
-  }
-
+  useEffect(() => {
+    authService.getCurrentUser()
+    .then((user) => dispatch(login({user})))
+  }, [])
   return (
-    <div>
-      <p>
-        {loggedInUser ? `Logged in as ${loggedInUser.name}` : 'Not logged in'}
-      </p>
-
-      <form>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        <input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-
-        <button type="button" onClick={() => login(email, password)}>
-          Login
-        </button>
-
-        <button
-          type="button"
-          onClick={async () => {
-            await account.create(ID.unique(), email, password, name);
-            login(email, password);
-          }}
-        >
-          Register
-        </button>
-
-        <button
-          type="button"
-          onClick={async () => {
-            await account.deleteSession('current');
-            setLoggedInUser(null);
-          }}
-        >
-          Logout
-        </button>
-      </form>
-    </div>
+    <>
+      <Header />
+      {auth.isLoggedin ? <Homepage /> : <Register />}
+      <Footer />
+    </>
   );
 };
 

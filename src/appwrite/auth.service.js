@@ -47,8 +47,11 @@ class AuthService {
     }
 
     async logout() {
-        const result = this.account.deleteSessions();
-        console.log(result);
+        try {
+            await this.account.deleteSessions();
+        } catch (error) {
+            throw new Error("Appwrite logout", error);
+        }
     }
 }
 
