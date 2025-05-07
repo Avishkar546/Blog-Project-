@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { account, ID } from './lib/appwrite';
+import { account, ID } from './appwrite/appwrite';
+import conf from '../conf/conf';
 
 const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
