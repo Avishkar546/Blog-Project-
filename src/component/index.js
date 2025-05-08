@@ -1,9 +1,8 @@
 import Header from './header/Header';
 import Footer from './footer/Footer';
-import Homepage from './Homepage';
-import Register from './Register';
 import LogoutBtn from './header/LogoutBtn';
 import Container from './container/Container';
 import Logo from './Logo';
+import Input from './Input';
 
-export { Header, Footer, Homepage, Register, LogoutBtn, Container, Logo };
+export { Header, Footer, LogoutBtn, Container, Logo, Input };
