@@ -41,9 +41,7 @@ class DatabaseService {
 
     async getAllPost(queries = [Query.equal('status', 'active')]) {
         try {
-            const result = await this.databases.listDocuments(conf.APPWRITE_DATABASE_ID, conf.APPWRITE_COLLECTION_ID, queries);
-            console.log(result);
-            return result;
+            return await this.databases.listDocuments(conf.APPWRITE_DATABASE_ID, conf.APPWRITE_COLLECTION_ID, queries);
         } catch (error) {
             throw new Error("create new blog :: ", error);
         }
@@ -51,15 +49,13 @@ class DatabaseService {
 
     async getPost({ slug }) {
         try {
-            const result = await this.databases.getDocument(conf.APPWRITE_DATABASE_ID, conf.APPWRITE_COLLECTION_ID, slug);
-            console.log(result);
-            return result;
+            return await this.databases.getDocument(conf.APPWRITE_DATABASE_ID, conf.APPWRITE_COLLECTION_ID, slug);
         } catch (error) {
             throw new Error("create new blog :: ", error);
         }
     }
 
-    async deletePost() {
+    async deletePost({ slug }) {
         try {
             return await this.databases.deleteDocument(conf.APPWRITE_DATABASE_ID, conf.APPWRITE_COLLECTION_ID, slug);
         } catch (error) {
@@ -79,17 +75,17 @@ class DatabaseService {
         return this.bucket.getFilePreview(
             conf.APPWRITE_BUCKET_ID, // bucketId
             fileId, // fileId
-            0, // width (optional)
-            0, // height (optional)
-            ImageGravity.Center, // gravity (optional)
-            0, // quality (optional)
-            0, // borderWidth (optional)
-            '', // borderColor (optional)
-            0, // borderRadius (optional)
-            0, // opacity (optional)
-            -360, // rotation (optional)
-            '', // background (optional)
-            ImageFormat.Jpg // output (optional)
+            // 0, // width (optional)
+            // 0, // height (optional)
+            // ImageGravity.Center, // gravity (optional)
+            // 0, // quality (optional)
+            // 0, // borderWidth (optional)
+            // '', // borderColor (optional)
+            // 0, // borderRadius (optional)
+            // 0, // opacity (optional)
+            // -360, // rotation (optional)
+            // '', // background (optional)
+            // ImageFormat.Jpg // output (optional)
         )
     }
 

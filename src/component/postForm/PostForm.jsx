@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import appwriteService from "../../appwrite/databases.service";
+import { Input, Select, RTE } from "../index";
 
 const PostForm = ({ post }) => {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -69,7 +70,7 @@ const PostForm = ({ post }) => {
     });
 
     return () => {
-      subscription.unsubscibe();
+      subscription.unsubscribe();
     };
   }, [watch, slugTransform, setValue]);
   return (

@@ -4,5 +4,11 @@ import LogoutBtn from './header/LogoutBtn';
 import Container from './container/Container';
 import Logo from './Logo';
 import Input from './Input';
+import Select from './Select';
+import RTE from './RTE';
+import Signup from './Signup';
+import Login from './Login';
+import PostForm from './postForm/PostForm';
+import PostCard from './PostCard';
 
-export { Header, Footer, LogoutBtn, Container, Logo, Input };
+export { Header, Footer, LogoutBtn, Container, Logo, Input, Select, RTE, Signup, Login, PostForm, PostCard };
