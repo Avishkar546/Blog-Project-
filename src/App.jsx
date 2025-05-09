@@ -1,24 +1,36 @@
-import React, { useEffect } from "react";
-import { Footer, Header, Homepage, Register } from "./component";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { Footer, Header } from "./component";
+import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth.service";
-import { login } from "./redux/features/authSlice";
+import { login, logout } from "./redux/features/authSlice";
+import { Outlet } from "react-router-dom";
 
 const App = () => {
-  const auth = useSelector((state) => state.auth);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    authService.getCurrentUser()
-    .then((user) => dispatch(login({user})))
-  }, [])
-  return (
-    <>
-      <Header />
-      {auth.isLoggedin ? <Homepage /> : <Register />}
-      <Footer />
-    </>
-  );
+    authService
+      .getCurrentUser()
+      .then((user) => {
+        if (user) dispatch(login({ user }));
+        else dispatch(logout());
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+  return !loading ? (
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+      <div className="w-full block">
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  ) : null;
 };
 
 export default App;

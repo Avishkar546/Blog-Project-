@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import authService from "../appwrite/auth.service";
 import { login as authLogin } from "../redux/features/authSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Input, Logo } from "./index";
+import { Button, Input, Logo } from "./index";
 
 const Login = () => {
   const dispatch = useDispatch();

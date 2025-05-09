@@ -6,15 +6,10 @@ const AllPost = () => {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    const subscription = () => {
-      appwriteService
-        .getAllPost([])
-        .then((res) => setPost(res.documents))
-        .catch((error) => console.log(error.message));
-    };
-    return () => {
-      subscription.unsubscribe();
-    };
+    appwriteService
+      .getAllPost([])
+      .then((res) => setPost(res.documents))
+      .catch((error) => console.log(error.message));
   }, []);
   return (
     <div className="w-full py-8">

@@ -10,7 +10,7 @@ const Header = () => {
 
   const navItem = [
     { name: "Home", path: "/", active: true },
-    { name: "All post", path: "/all-post", active: isLoggedin },
+    { name: "All post", path: "/all-posts", active: isLoggedin },
     { name: "Add post", path: "/add-post", active: isLoggedin },
     { name: "Register", path: "/signup", active: !isLoggedin },
     { name: "Login", path: "/login", active: !isLoggedin },

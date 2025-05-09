@@ -9,17 +9,18 @@ const EditPost = () => {
   const { slug } = useParams();
 
   useEffect(() => {
-    appwriteService.getPost(slug).then((res) => {
+    appwriteService.getPost({slug}).then((res) => {
       if (res) {
         setPost(res);
       } else navigate("/");
     });
   });
 
+  console.log(post);
   return post ? (
     <div className="py-8">
       <Container>
-        <PostForm {...post} />
+        <PostForm post={post} />
       </Container>
     </div>
   ) : (

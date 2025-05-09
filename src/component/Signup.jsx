@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import authService from "../appwrite/auth.service";
 import { login as authLogin } from "../redux/features/authSlice";
 import { useForm } from "react-hook-form";
-import { Input } from "./index";
+import { Button, Input, Logo } from "./index";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -16,12 +16,15 @@ const Signup = () => {
     setError("");
     try {
       const account = await authService.createAccount(data);
+      console.log('account: ', account);      
       if (account) {
         const user = await authService.getCurrentUser();
+        console.log('user: ', user);
+        
         if (user) {
           dispatch(authLogin(user));
+          navigate("/");
         }
-        navigate("/");
       }
     } catch (error) {
       setError(error.message);

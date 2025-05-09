@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import appwriteService from "../../appwrite/databases.service";
-import { Input, Select, RTE } from "../index";
+import { Input, Select, RTE, Button } from "../index";
 
 const PostForm = ({ post }) => {
   const { register, handleSubmit, watch, setValue, control, getValues } =
@@ -15,7 +15,7 @@ const PostForm = ({ post }) => {
         status: post?.status || "",
       },
     });
-
+  console.log(post);  
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
@@ -58,8 +58,7 @@ const PostForm = ({ post }) => {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
+        .replace(/[^a-zA-Z\d]+/g, "-")
   }, []);
 
   useEffect(() => {
@@ -111,7 +110,7 @@ const PostForm = ({ post }) => {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              // src={appwriteService.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

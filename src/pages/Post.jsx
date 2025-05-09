@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/databases.service";
 import { useSelector } from "react-redux";
+import { Button, Container } from "../component";
+import parse from 'html-react-parser';
 
 const Post = () => {
   const [post, setPost] = useState(null);
   const { slug } = useParams();
+  console.log(slug);
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
@@ -13,7 +16,7 @@ const Post = () => {
 
   useEffect(() => {
     if (slug) {
-      appwriteService.getPost(slug).then((res) => {
+      appwriteService.getPost({slug}).then((res) => {
         if (res) setPost(res);
         else navigate("/");
       });
@@ -21,6 +24,7 @@ const Post = () => {
   }, [slug, navigate]);
 
   const deletePost = () => {
+    console.log("Delete post called: ", post.$id);    
     appwriteService.deletePost(post.$id).then((status) => {
       if (status) {
         appwriteService.deleteFile(post.featuredImage);
@@ -28,6 +32,7 @@ const Post = () => {
       }
     });
   };
+  console.log(post);
 
   return post ? (
     <div className="py-8">

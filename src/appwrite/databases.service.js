@@ -55,7 +55,7 @@ class DatabaseService {
         }
     }
 
-    async deletePost({ slug }) {
+    async deletePost(slug ) {
         try {
             return await this.databases.deleteDocument(conf.APPWRITE_DATABASE_ID, conf.APPWRITE_COLLECTION_ID, slug);
         } catch (error) {
@@ -72,6 +72,8 @@ class DatabaseService {
     }
 
     getFilePreview(fileId) {
+        console.log('fileId inside getFilepreview: ',fileId);
+        
         return this.bucket.getFilePreview(
             conf.APPWRITE_BUCKET_ID, // bucketId
             fileId, // fileId
